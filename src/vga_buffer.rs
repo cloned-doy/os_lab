@@ -79,9 +79,6 @@ impl Writer {
             }
         }
     }
-
-   // fn new_line(&mut self) { /* TODO */
-    //}
 }
 
 impl Writer {
@@ -116,6 +113,7 @@ impl Writer {
     }}
 
 pub fn print_something() {
+    use core::fmt::Write;
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
@@ -124,5 +122,25 @@ pub fn print_something() {
 
     writer.write_byte(b'H');
     writer.write_string("ello ");
-    writer.write_string("Wörld!");
+    write!(writer, "the number are {} and {}", 4444, 1.0/20.0).unwrap();
+
+
 }
+
+
+use core::fmt;
+
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_string(s);
+        Ok(())
+    }
+}
+
+use lazy_static::lazy_static;
+lazy_static! {
+pub static ref WRITER: Writer = Writer {
+    column_position: 0,
+    color_code: ColorCode::new(Color::Yellow, Color::Black),
+    buffer: unsafe {&mut *(0x8000 as *mut Buffer)},
+};}
