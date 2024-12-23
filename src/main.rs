@@ -24,12 +24,8 @@ fn panic(info: &PanicInfo) -> ! {
     loop {}
 }
 
-
 #[cfg(test)]
 #[panic_handler]
-fn panic(info: &PanicInfo) -> !{
+fn panic(info: &PanicInfo) -> ! {
     os_lab::test_panic_handler(info)
 }
-
-
-

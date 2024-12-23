@@ -13,7 +13,7 @@ pub extern "C" fn _start() -> ! {
 }
 
 //fn test_runner(tests: &[&dyn Fn()]) {
-  //  unimplemented!();
+//  unimplemented!();
 //}
 
 #[panic_handler]
@@ -21,10 +21,9 @@ fn panic(info: &PanicInfo) -> ! {
     os_lab::test_panic_handler(info)
 }
 
-
 use os_lab::println;
 
 #[test_case]
-fn test_println(){
+fn test_println() {
     println!("test_println output")
 }
